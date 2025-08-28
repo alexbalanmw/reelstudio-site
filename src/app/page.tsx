@@ -3,10 +3,13 @@
 import React from "react";
 import { motion } from "framer-motion";
 import type { Variants } from "framer-motion";
-import { motion, Variants } from "framer-motion";
 
 /**
- * Apple‑Style Homepage (fixed imports)
+ * Apple‑Style Homepage — Gradient Hero + Clean Body
+ *
+ * Keeps your original wording. Top hero on brand gradient.
+ * Middle sections stay clean (white) for that Apple feel.
+ * Footer has a subtle gradient glow.
  */
 
 const fadeUp: Variants = {
@@ -25,8 +28,6 @@ const stagger: Variants = {
   },
 };
 
-
-
 export default function AppleStyleHomepage() {
   return (
     <div className="min-h-screen bg-white text-neutral-900 selection:bg-neutral-900 selection:text-white">
@@ -43,7 +44,6 @@ export default function AppleStyleHomepage() {
           <nav className="hidden md:flex items-center gap-6 text-sm text-neutral-600">
             <a className="hover:text-neutral-900" href="#features">Features</a>
             <a className="hover:text-neutral-900" href="#gallery">Work</a>
-            <a className="hover:text-neutral-900" href="#metrics">Results</a>
             <a className="hover:text-neutral-900" href="#pricing">Pricing</a>
           </nav>
           <a
@@ -55,44 +55,44 @@ export default function AppleStyleHomepage() {
         </div>
       </header>
 
-      {/* Hero */}
+      {/* Hero — Full‑bleed gradient */}
       <section className="relative overflow-hidden">
-        <div className="absolute inset-0 -z-10 bg-gradient-to-br from-[#EAF4FF] via-white to-[#FFF0FA]" />
-        <div className="mx-auto max-w-6xl px-4 py-20">
-          <motion.div variants={stagger} initial="hidden" animate="show">
+        <div className="absolute inset-0 -z-10 bg-gradient-to-br from-[#3BA9FF] via-[#9A5BFF] to-[#FF58C4]" />
+        <div className="mx-auto max-w-6xl px-4 py-24 md:py-28">
+          <motion.div variants={stagger} initial="hidden" animate="show" className="text-white">
             <motion.h1 variants={fadeUp} className="text-5xl md:text-6xl font-semibold tracking-tight leading-[1.05]">
               Apple‑clean design for content that converts.
             </motion.h1>
-            <motion.p variants={fadeUp} className="mt-5 max-w-2xl text-lg text-neutral-600">
+            <motion.p variants={fadeUp} className="mt-5 max-w-2xl text-lg/7 text-white/90">
               Minimal layout, premium feel, and a gradient system inspired by your palette:
-              <span className="mx-2 font-medium text-neutral-900">#3BA9FF</span>→
-              <span className="mx-2 font-medium text-neutral-900">#9A5BFF</span>→
-              <span className="mx-2 font-medium text-neutral-900">#FF58C4</span>.
+              <span className="mx-2 font-semibold">#3BA9FF</span>→
+              <span className="mx-2 font-semibold">#9A5BFF</span>→
+              <span className="mx-2 font-semibold">#FF58C4</span>.
             </motion.p>
             <motion.div variants={fadeUp} className="mt-8 flex items-center gap-3">
               <a
                 href="#cta"
-                className="rounded-full px-5 py-3 text-sm font-medium text-white bg-gradient-to-r from-[#3BA9FF] via-[#9A5BFF] to-[#FF58C4] shadow-sm hover:opacity-95 transition"
+                className="rounded-full px-5 py-3 text-sm font-medium text-neutral-900 bg-white hover:bg-white/90 transition shadow-sm"
               >
                 Book a demo
               </a>
-              <a href="#features" className="rounded-full px-5 py-3 text-sm font-medium text-neutral-900 border border-neutral-200 hover:bg-neutral-50">
+              <a href="#features" className="rounded-full px-5 py-3 text-sm font-medium border border-white/70 text-white hover:bg-white/10">
                 Explore features
               </a>
             </motion.div>
 
-            {/* Hero visual */}
+            {/* Hero visual frame */}
             <motion.div variants={fadeUp} className="mt-16">
-              <div className="aspect-[16/9] w-full overflow-hidden rounded-3xl bg-neutral-100 shadow-sm">
+              <div className="aspect-[16/9] w-full overflow-hidden rounded-3xl bg-white/10 ring-1 ring-white/25 backdrop-blur-[2px]">
                 {/* Replace with your hero image/video */}
-                <div className="h-full w-full bg-gradient-to-br from-[#3BA9FF] via-[#9A5BFF] to-[#FF58C4]" />
+                <div className="h-full w-full bg-gradient-to-br from-white/30 via-white/10 to-transparent" />
               </div>
             </motion.div>
           </motion.div>
         </div>
       </section>
 
-      {/* Features */}
+      {/* Features — clean white */}
       <section id="features" className="mx-auto max-w-6xl px-4 py-24">
         <div className="mb-12">
           <h2 className="text-3xl md:text-4xl font-semibold tracking-tight">Designed to feel effortless</h2>
@@ -126,8 +126,8 @@ export default function AppleStyleHomepage() {
         </div>
       </section>
 
-      {/* Gallery / Work */}
-      <section id="gallery" className="bg-neutral-50">
+      {/* Gallery — clean white */}
+      <section id="gallery" className="bg-white">
         <div className="mx-auto max-w-6xl px-4 py-24">
           <div className="mb-10 flex items-end justify-between">
             <div>
@@ -147,7 +147,7 @@ export default function AppleStyleHomepage() {
                 className="group overflow-hidden rounded-2xl bg-white border border-neutral-200"
               >
                 <div className="aspect-[4/3] w-full bg-neutral-100">
-                  {/* Replace with <img src="..." /> */}
+                  {/* Replace with <img src="..." alt="" /> */}
                   <div className="h-full w-full bg-gradient-to-br from-[#3BA9FF] via-[#9A5BFF] to-[#FF58C4] opacity-90 group-hover:opacity-100 transition" />
                 </div>
                 <div className="p-4">
@@ -160,31 +160,8 @@ export default function AppleStyleHomepage() {
         </div>
       </section>
 
-      {/* Metrics */}
-      <section id="metrics" className="mx-auto max-w-6xl px-4 py-24">
-        <div className="mb-12">
-          <h2 className="text-3xl md:text-4xl font-semibold tracking-tight">Real results</h2>
-          <p className="mt-3 max-w-2xl text-neutral-600">Use proof over promises. Replace with your metrics.</p>
-        </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          {[
-            { k: "5.6M", v: "views on one Reel" },
-            { k: "+4,000", v: "followers gained" },
-            { k: "12/15", v: "Reels ranked top‑10%" },
-            { k: "92%", v: "client retention" },
-          ].map((m, i) => (
-            <div key={i} className="rounded-2xl border border-neutral-200 p-6 text-center bg-white">
-              <div className="text-3xl md:text-4xl font-semibold tracking-tight bg-gradient-to-r from-[#3BA9FF] via-[#9A5BFF] to-[#FF58C4] bg-clip-text text-transparent">
-                {m.k}
-              </div>
-              <div className="mt-2 text-sm text-neutral-600">{m.v}</div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Pricing */}
-      <section id="pricing" className="bg-neutral-50">
+      {/* Pricing — clean white */}
+      <section id="pricing" className="bg-white">
         <div className="mx-auto max-w-6xl px-4 py-24">
           <div className="mb-12 text-center">
             <h2 className="text-3xl md:text-4xl font-semibold tracking-tight">Simple pricing</h2>
@@ -221,9 +198,9 @@ export default function AppleStyleHomepage() {
         </div>
       </section>
 
-      {/* CTA */}
+      {/* CTA — dark card with gradient glow */}
       <section id="cta" className="relative overflow-hidden">
-        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#3BA9FF] via-[#9A5BFF] to-[#FF58C4] opacity-10" />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#3BA9FF]/10 via-[#9A5BFF]/10 to-[#FF58C4]/10" />
         <div className="mx-auto max-w-6xl px-4 py-24">
           <div className="rounded-3xl bg-neutral-900 text-white p-10 md:p-14 overflow-hidden relative">
             <div className="absolute -right-24 -top-24 h-64 w-64 rounded-full bg-gradient-to-br from-[#3BA9FF] via-[#9A5BFF] to-[#FF58C4] opacity-30 blur-3xl" />
@@ -249,9 +226,10 @@ export default function AppleStyleHomepage() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="border-t border-neutral-200/70">
-        <div className="mx-auto max-w-6xl px-4 py-10 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-neutral-600">
+      {/* Footer with subtle glow */}
+      <footer className="relative border-t border-neutral-200/70">
+        <div className="absolute inset-x-0 -top-24 h-24 bg-gradient-to-r from-[#3BA9FF]/10 via-[#9A5BFF]/10 to-[#FF58C4]/10 blur-2xl" />
+        <div className="mx-auto max-w-6xl px-4 py-12 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-neutral-600">
           <div className="flex items-center gap-2">
             <div className="h-5 w-5 rounded-md bg-gradient-to-br from-[#3BA9FF] via-[#9A5BFF] to-[#FF58C4]" />
             <span>© {new Date().getFullYear()} Your Brand</span>
