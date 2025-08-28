@@ -2,6 +2,8 @@
 
 import { motion } from "framer-motion";
 import { Camera, Film, Megaphone, BarChart3, ArrowRight } from "lucide-react";
+import type { Variants } from "framer-motion";
+
 
 // --- AEB Media Logo (wordmark + icon) ---
 function LogoAEB({ className = "h-6" }: { className?: string }) {
@@ -35,12 +37,17 @@ function LogoAEB({ className = "h-6" }: { className?: string }) {
 // 2) Ensure Tailwind is set up and globals.css includes Tailwind base/components/utilities
 // 3) Run: npm run dev
 
-const fadeUp = {
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+  },
 };
 
-const stagger = {
+const stagger: Variants = {
+  hidden: {},
   show: {
     transition: { staggerChildren: 0.12, delayChildren: 0.1 },
   },
