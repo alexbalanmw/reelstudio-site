@@ -1,201 +1,264 @@
-"use client";
-
+import React from "react";
 import { motion } from "framer-motion";
-import type { Variants } from "framer-motion";
-import { Camera, Film, Megaphone, BarChart3, ArrowRight } from "lucide-react";
 
-// --- AEB Media Logo (wordmark + icon) ---
-function LogoAEB({ className = "h-6" }: { className?: string }) {
-  return (
-    <div className={`flex items-center gap-3 ${className}`}>
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" className="shrink-0">
-        <rect x="2" y="2" width="24" height="24" rx="6" fill="#000" />
-        <path d="M8 18L11 10H12.5L15.5 18H14L13.2 16H10.8L10 18H8Z" fill="white" />
-        <rect x="16" y="10" width="2.6" height="8" fill="white" />
-        <path d="M20 10H23C24.1 10 25 10.9 25 12C25 13.1 24.1 14 23 14H21.2V18H20V10ZM23 12H21.2V13H23C23.55 13 24 12.55 24 12C24 11.45 23.55 11 23 11Z" fill="white" />
-      </svg>
-      <span className="font-semibold tracking-tight">AEB Media</span>
-    </div>
-  );
-}
+/**
+ * Apple‑Style Homepage
+ *
+ * Notes
+ * - TailwindCSS utility classes for spacing, grid, and typography
+ * - Uses your gradient palette: #3BA9FF → #9A5BFF → #FF58C4
+ * - Clean, minimal, generous whitespace, subtle motion
+ * - Replace placeholders (logo, images, copy) with your assets
+ */
 
-// animations
-const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
 };
 
-const stagger: Variants = {
+const stagger = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
+  show: {
+    transition: { staggerChildren: 0.08, delayChildren: 0.1 },
+  },
 };
 
-// ✅ Default export must be the root page component
-export default function Page() {
+export default function AppleStyleHomepage() {
   return (
-    <div className="min-h-screen bg-white text-gray-900 selection:bg-black selection:text-white">
-      <SiteBg />
-      <Header />
-      <main>
-        <Hero />
-        <Features />
-        <Showcase />
-        <Proof />
-        <CTA />
-      </main>
-      <Footer />
-    </div>
-  );
-}
-
-function SiteBg() {
-  return (
-    <div aria-hidden className="pointer-events-none fixed inset-0 -z-10">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(0,0,0,0.06),transparent_60%)]" />
-      <div className="absolute inset-0 opacity-[0.03]" />
-    </div>
-  );
-}
-
-function Header() {
-  return (
-    <header className="sticky top-0 z-50 backdrop-blur supports-[backdrop-filter]:bg-white/60 border-b border-black/5">
-      <div className="mx-auto max-w-7xl px-6">
-        <div className="flex h-16 items-center justify-between">
-          <a href="#home" className="flex items-center"><LogoAEB /></a>
-          <nav className="hidden md:flex items-center gap-8 text-sm">
-            <a href="#work" className="hover:opacity-70">Work</a>
-            <a href="#services" className="hover:opacity-70">Services</a>
-            <a href="#about" className="hover:opacity-70">About</a>
-            <a href="#contact" className="hover:opacity-70">Contact</a>
+    <div className="min-h-screen bg-white text-neutral-900 selection:bg-neutral-900 selection:text-white">
+      {/* Nav */}
+      <header className="sticky top-0 z-40 border-b border-neutral-200/60 backdrop-blur bg-white/70">
+        <div className="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div
+              className="h-6 w-6 rounded-lg bg-gradient-to-br from-[#3BA9FF] via-[#9A5BFF] to-[#FF58C4]"
+              aria-hidden
+            />
+            <span className="text-sm font-semibold tracking-tight">Your Brand</span>
+          </div>
+          <nav className="hidden md:flex items-center gap-6 text-sm text-neutral-600">
+            <a className="hover:text-neutral-900" href="#features">Features</a>
+            <a className="hover:text-neutral-900" href="#gallery">Work</a>
+            <a className="hover:text-neutral-900" href="#metrics">Results</a>
+            <a className="hover:text-neutral-900" href="#pricing">Pricing</a>
           </nav>
-          <a href="#contact" className="inline-flex items-center rounded-full bg-black px-4 py-2 text-white text-sm font-medium hover:opacity-90">
-            Get proposal <ArrowRight className="ml-2 h-4 w-4" />
+          <a
+            href="#cta"
+            className="rounded-full px-4 py-2 text-sm font-medium text-white bg-neutral-900 hover:bg-neutral-800 transition"
+          >
+            Get started
           </a>
         </div>
-      </div>
-    </header>
-  );
-}
+      </header>
 
-function Hero() {
-  return (
-    <section id="home" className="relative overflow-hidden">
-      <div className="mx-auto max-w-7xl px-6 py-24 md:py-36">
-        <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true }}>
-          <motion.h1 variants={fadeUp} className="text-balance text-4xl sm:text-6xl md:text-7xl font-semibold tracking-tight">
-            Done-for-you Reels that drive sales
-          </motion.h1>
-          <motion.p variants={fadeUp} className="mt-6 max-w-2xl text-lg text-gray-600">
-            Strategy, scripting, filming, editing, ads and sales systems. We make modern marketing hands off for busy owners — and focused on revenue.
-          </motion.p>
-          <motion.div variants={fadeUp} className="mt-8 flex flex-wrap gap-3">
-            <a href="#contact" className="inline-flex items-center rounded-full bg-black px-6 py-3 text-white font-medium hover:opacity-90">
-              Talk to us <ArrowRight className="ml-2 h-4 w-4" />
-            </a>
-            <a href="#work" className="inline-flex items-center rounded-full border border-black/10 px-6 py-3 font-medium hover:bg-black/5">
-              See work
-            </a>
-          </motion.div>
-        </motion.div>
-      </div>
-    </section>
-  );
-}
+      {/* Hero */}
+      <section className="relative overflow-hidden">
+        <div className="absolute inset-0 -z-10 bg-gradient-to-br from-[#EAF4FF] via-white to-[#FFF0FA]" />
+        <div className="mx-auto max-w-6xl px-4 py-20">
+          <motion.div variants={stagger} initial="hidden" animate="show">
+            <motion.h1 variants={fadeUp} className="text-5xl md:text-6xl font-semibold tracking-tight leading-[1.05]">
+              Apple‑clean design for content that converts.
+            </motion.h1>
+            <motion.p variants={fadeUp} className="mt-5 max-w-2xl text-lg text-neutral-600">
+              Minimal layout, premium feel, and a gradient system inspired by your palette:
+              <span className="mx-2 font-medium text-neutral-900">#3BA9FF</span>→
+              <span className="mx-2 font-medium text-neutral-900">#9A5BFF</span>→
+              <span className="mx-2 font-medium text-neutral-900">#FF58C4</span>.
+            </motion.p>
+            <motion.div variants={fadeUp} className="mt-8 flex items-center gap-3">
+              <a
+                href="#cta"
+                className="rounded-full px-5 py-3 text-sm font-medium text-white bg-gradient-to-r from-[#3BA9FF] via-[#9A5BFF] to-[#FF58C4] shadow-sm hover:opacity-95 transition"
+              >
+                Book a demo
+              </a>
+              <a href="#features" className="rounded-full px-5 py-3 text-sm font-medium text-neutral-900 border border-neutral-200 hover:bg-neutral-50">
+                Explore features
+              </a>
+            </motion.div>
 
-function Features() {
-  const items = [
-    { icon: <Camera className="h-6 w-6" />, title: "Cinematic content", text: "High-quality Reels and Stories designed to capture attention fast." },
-    { icon: <Film className="h-6 w-6" />, title: "End-to-end production", text: "We handle strategy, scripting, filming and editing so you stay focused." },
-    { icon: <Megaphone className="h-6 w-6" />, title: "Ads that scale", text: "Facebook and Google Ads to amplify reach and generate steady leads." },
-    { icon: <BarChart3 className="h-6 w-6" />, title: "Sales systems", text: "Front desk and sales team enablement to turn attention into revenue." },
-  ];
-
-  return (
-    <section id="services" className="border-t border-black/5">
-      <div className="mx-auto max-w-7xl px-6 py-20">
-        <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true }} className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {items.map((item, i) => (
-            <motion.div key={i} variants={fadeUp} className="rounded-2xl border border-black/10 p-6 hover:shadow-sm transition-shadow">
-              <div className="flex items-center gap-3">
-                <div className="rounded-full bg-black text-white p-2">{item.icon}</div>
-                <h3 className="font-semibold">{item.title}</h3>
+            {/* Hero visual */}
+            <motion.div variants={fadeUp} className="mt-16">
+              <div className="aspect-[16/9] w-full overflow-hidden rounded-3xl bg-neutral-100 shadow-sm">
+                {/* Replace with your hero image/video */}
+                <div className="h-full w-full bg-gradient-to-br from-[#3BA9FF] via-[#9A5BFF] to-[#FF58C4]" />
               </div>
-              <p className="mt-3 text-sm text-gray-600">{item.text}</p>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Features */}
+      <section id="features" className="mx-auto max-w-6xl px-4 py-24">
+        <div className="mb-12">
+          <h2 className="text-3xl md:text-4xl font-semibold tracking-tight">Designed to feel effortless</h2>
+          <p className="mt-3 max-w-2xl text-neutral-600">Whitespace, crisp typography, and subtle motion—everything tuned for clarity and focus.</p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {[
+            {
+              title: "Gradient‑driven brand",
+              copy: "Consistent blue→purple→pink accents with neutral backdrops.",
+            },
+            { title: "Premium typography", copy: "SF‑style hierarchy for instant readability." },
+            {
+              title: "Subtle depth",
+              copy: "Soft shadows, rounded corners, and clean cards that float.",
+            },
+          ].map((f, i) => (
+            <motion.div
+              key={i}
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.3 }}
+              className="rounded-2xl border border-neutral-200 p-6 bg-white shadow-[0_1px_0_0_rgba(0,0,0,0.04)]"
+            >
+              <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-[#3BA9FF] via-[#9A5BFF] to-[#FF58C4] mb-4" />
+              <h3 className="text-lg font-semibold">{f.title}</h3>
+              <p className="mt-2 text-sm text-neutral-600">{f.copy}</p>
             </motion.div>
           ))}
-        </motion.div>
-      </div>
-    </section>
-  );
-}
-
-function Showcase() {
-  return (
-    <section id="work" className="border-t border-black/5">
-      <div className="mx-auto max-w-7xl px-6 py-24">
-        <div className="mx-auto max-w-3xl text-center">
-          <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight">Work that looks good and sells</h2>
-          <p className="mt-4 text-gray-600">Swap the image with your best case study. Keep it simple, high contrast and product-first.</p>
         </div>
-        <div className="mt-10 overflow-hidden rounded-3xl border border-black/10 bg-gradient-to-br from-gray-50 to-white">
-          <div className="aspect-[16/9] w-full bg-[url('https://images.unsplash.com/photo-1518779578993-ec3579fee39f?q=80&w=1740&auto=format&fit=crop')] bg-cover bg-center" />
-        </div>
-      </div>
-    </section>
-  );
-}
+      </section>
 
-function Proof() {
-  const logos = ["Wellness Co", "Lymph Spa", "Clean Pro", "Dentist 360", "Fit Studio"];
-  return (
-    <section id="about" className="border-y border-black/5">
-      <div className="mx-auto max-w-7xl px-6 py-16">
-        <p className="text-center text-sm uppercase tracking-[0.2em] text-gray-500">Trusted by AEB Media clients</p>
-        <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6 items-center">
-          {logos.map((l, i) => (
-            <div key={i} className="text-center text-gray-500 text-sm border border-black/5 rounded-xl py-4">{l}</div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function CTA() {
-  return (
-    <section id="contact" className="relative">
-      <div className="mx-auto max-w-7xl px-6 py-24">
-        <div className="rounded-3xl bg-black text-white p-10 md:p-16 overflow-hidden">
-          <div className="pointer-events-none absolute inset-0 opacity-30 bg-[radial-gradient(600px_200px_at_50%_-20%,rgba(255,255,255,0.35),transparent)]" />
-          <div className="relative">
-            <h3 className="text-3xl sm:text-4xl font-semibold tracking-tight">Let’s make your marketing hands off and revenue-focused</h3>
-            <p className="mt-4 text-white/80 max-w-2xl">Send us your goals. We’ll bring the strategy, content and systems to hit them.</p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <a href="mailto:hello@AEBMedia.co" className="inline-flex items-center rounded-full bg-white px-6 py-3 text-black font-medium hover:opacity-90">
-                Get proposal <ArrowRight className="ml-2 h-4 w-4" />
-              </a>
-              <a href="#work" className="inline-flex items-center rounded-full border border-white/20 px-6 py-3 font-medium hover:bg-white/10">
-                See work
-              </a>
+      {/* Gallery / Work */}
+      <section id="gallery" className="bg-neutral-50">
+        <div className="mx-auto max-w-6xl px-4 py-24">
+          <div className="mb-10 flex items-end justify-between">
+            <div>
+              <h2 className="text-3xl md:text-4xl font-semibold tracking-tight">Recent work</h2>
+              <p className="mt-3 max-w-2xl text-neutral-600">Drop your images and case studies here. Each card supports titles and short blurbs.</p>
             </div>
+            <a href="#" className="text-sm font-medium text-neutral-900 hover:opacity-70">View all</a>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[1, 2, 3, 4, 5, 6].map((n) => (
+              <motion.div
+                key={n}
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true, amount: 0.2 }}
+                className="group overflow-hidden rounded-2xl bg-white border border-neutral-200"
+              >
+                <div className="aspect-[4/3] w-full bg-neutral-100">
+                  {/* Replace with <img src="..." /> */}
+                  <div className="h-full w-full bg-gradient-to-br from-[#3BA9FF] via-[#9A5BFF] to-[#FF58C4] opacity-90 group-hover:opacity-100 transition" />
+                </div>
+                <div className="p-4">
+                  <h3 className="text-base font-semibold">Project {n}</h3>
+                  <p className="mt-1 text-sm text-neutral-600">Short one‑liner about impact/results.</p>
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
-      </div>
-    </section>
-  );
-}
+      </section>
 
-function Footer() {
-  return (
-    <footer className="border-t border-black/5">
-      <div className="mx-auto max-w-7xl px-6 py-10 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-600">
-        <p>© {new Date().getFullYear()} AEB Media. All rights reserved.</p>
-        <div className="flex items-center gap-6">
-          <a href="#" className="hover:opacity-70">Privacy</a>
-          <a href="#" className="hover:opacity-70">Terms</a>
+      {/* Metrics */}
+      <section id="metrics" className="mx-auto max-w-6xl px-4 py-24">
+        <div className="mb-12">
+          <h2 className="text-3xl md:text-4xl font-semibold tracking-tight">Real results</h2>
+          <p className="mt-3 max-w-2xl text-neutral-600">Use proof over promises. Replace with your metrics.</p>
         </div>
-      </div>
-    </footer>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          {[
+            { k: "5.6M", v: "views on one Reel" },
+            { k: "+4,000", v: "followers gained" },
+            { k: "12/15", v: "Reels ranked top‑10%" },
+            { k: "92%", v: "client retention" },
+          ].map((m, i) => (
+            <div key={i} className="rounded-2xl border border-neutral-200 p-6 text-center bg-white">
+              <div className="text-3xl md:text-4xl font-semibold tracking-tight bg-gradient-to-r from-[#3BA9FF] via-[#9A5BFF] to-[#FF58C4] bg-clip-text text-transparent">
+                {m.k}
+              </div>
+              <div className="mt-2 text-sm text-neutral-600">{m.v}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Pricing */}
+      <section id="pricing" className="bg-neutral-50">
+        <div className="mx-auto max-w-6xl px-4 py-24">
+          <div className="mb-12 text-center">
+            <h2 className="text-3xl md:text-4xl font-semibold tracking-tight">Simple pricing</h2>
+            <p className="mt-3 max-w-2xl mx-auto text-neutral-600">Choose a plan and scale when you’re ready.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              { name: "Starter", price: "$495", features: ["3 Reels", "1 shoot day", "Basic captions"] },
+              { name: "Growth", price: "$1,295", features: ["8 Reels", "2 shoot days", "A/B hooks", "CTA testing"] },
+              { name: "Pro", price: "$2,895", features: ["15 Reels", "Strategy + scripts", "Analytics dashboard"] },
+            ].map((p, i) => (
+              <div key={i} className="rounded-2xl border border-neutral-200 bg-white p-6">
+                <div className="flex items-baseline justify-between">
+                  <h3 className="text-lg font-semibold">{p.name}</h3>
+                  <div className="text-xl font-semibold">{p.price}</div>
+                </div>
+                <ul className="mt-4 space-y-2 text-sm text-neutral-700">
+                  {p.features.map((f, idx) => (
+                    <li key={idx} className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-gradient-to-r from-[#3BA9FF] via-[#9A5BFF] to-[#FF58C4]" />
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+                <a
+                  href="#cta"
+                  className="mt-6 inline-flex w-full items-center justify-center rounded-full px-5 py-3 text-sm font-medium text-white bg-neutral-900 hover:bg-neutral-800"
+                >
+                  Choose {p.name}
+                </a>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section id="cta" className="relative overflow-hidden">
+        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#3BA9FF] via-[#9A5BFF] to-[#FF58C4] opacity-10" />
+        <div className="mx-auto max-w-6xl px-4 py-24">
+          <div className="rounded-3xl bg-neutral-900 text-white p-10 md:p-14 overflow-hidden relative">
+            <div className="absolute -right-24 -top-24 h-64 w-64 rounded-full bg-gradient-to-br from-[#3BA9FF] via-[#9A5BFF] to-[#FF58C4] opacity-30 blur-3xl" />
+            <h2 className="text-3xl md:text-4xl font-semibold tracking-tight">Ready to look premium?</h2>
+            <p className="mt-3 max-w-2xl text-neutral-300">Tell us your goals. We’ll design a minimal, Apple‑style site that makes your work feel inevitable.</p>
+            <form className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-3">
+              <input
+                className="rounded-full px-5 py-3 text-sm text-neutral-900 bg-white placeholder:text-neutral-400 focus:outline-none"
+                placeholder="Your email"
+              />
+              <input
+                className="rounded-full px-5 py-3 text-sm text-neutral-900 bg-white placeholder:text-neutral-400 focus:outline-none"
+                placeholder="What do you need?"
+              />
+              <button
+                type="button"
+                className="rounded-full px-5 py-3 text-sm font-medium text-white bg-gradient-to-r from-[#3BA9FF] via-[#9A5BFF] to-[#FF58C4] shadow-sm hover:opacity-95"
+              >
+                Send
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="border-t border-neutral-200/70">
+        <div className="mx-auto max-w-6xl px-4 py-10 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-neutral-600">
+          <div className="flex items-center gap-2">
+            <div className="h-5 w-5 rounded-md bg-gradient-to-br from-[#3BA9FF] via-[#9A5BFF] to-[#FF58C4]" />
+            <span>© {new Date().getFullYear()} Your Brand</span>
+          </div>
+          <div className="flex items-center gap-6">
+            <a className="hover:text-neutral-900" href="#">Privacy</a>
+            <a className="hover:text-neutral-900" href="#">Terms</a>
+            <a className="hover:text-neutral-900" href="#">Contact</a>
+          </div>
+        </div>
+      </footer>
+    </div>
   );
 }
