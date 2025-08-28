@@ -53,13 +53,6 @@ const stagger: Variants = {
   },
 };
 
-export default function Page() {
-  return (
-    <div>
-      <h1>Hello AEB Media 🚀</h1>
-    </div>
-  )
-}
 
 
 
