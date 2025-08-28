@@ -53,6 +53,16 @@ const stagger: Variants = {
   },
 };
 
+export default function Page() {
+  return (
+    <div>
+      <h1>Hello AEB Media 🚀</h1>
+    </div>
+  )
+}
+
+
+
 export default function Landing() {
   return (
     <div className="min-h-screen bg-white text-gray-900 selection:bg-black selection:text-white">
