@@ -1,62 +1,37 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Camera, Film, Megaphone, BarChart3, ArrowRight } from "lucide-react";
 import type { Variants } from "framer-motion";
-
+import { Camera, Film, Megaphone, BarChart3, ArrowRight } from "lucide-react";
 
 // --- AEB Media Logo (wordmark + icon) ---
 function LogoAEB({ className = "h-6" }: { className?: string }) {
   return (
     <div className={`flex items-center gap-3 ${className}`}>
-      {/* Monogram icon */}
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"
-        className="shrink-0">
-        <rect x="2" y="2" width="24" height="24" rx="6" fill="#000"/>
-        {/* Stylized AEB */}
-        <path d="M8 18L11 10H12.5L15.5 18H14L13.2 16H10.8L10 18H8Z" fill="white"/>
-        <rect x="16" y="10" width="2.6" height="8" fill="white"/>
-        <path d="M20 10H23C24.1 10 25 10.9 25 12C25 13.1 24.1 14 23 14H21.2V18H20V10ZM23 12H21.2V13H23C23.55 13 24 12.55 24 12C24 11.45 23.55 11 23 11Z" fill="white"/>
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" className="shrink-0">
+        <rect x="2" y="2" width="24" height="24" rx="6" fill="#000" />
+        <path d="M8 18L11 10H12.5L15.5 18H14L13.2 16H10.8L10 18H8Z" fill="white" />
+        <rect x="16" y="10" width="2.6" height="8" fill="white" />
+        <path d="M20 10H23C24.1 10 25 10.9 25 12C25 13.1 24.1 14 23 14H21.2V18H20V10ZM23 12H21.2V13H23C23.55 13 24 12.55 24 12C24 11.45 23.55 11 23 11Z" fill="white" />
       </svg>
-      {/* Wordmark */}
       <span className="font-semibold tracking-tight">AEB Media</span>
     </div>
   );
 }
 
-// Apple‑style, minimal, high‑contrast landing page starter
-// Stack assumptions
-// - Next.js or Vite + React
-// - Tailwind CSS configured
-// - framer-motion & lucide-react installed
-//   npm i framer-motion lucide-react
-//   npm i -D tailwindcss postcss autoprefixer
-//
-// How to use in Next.js (App Router):
-// 1) Place this file as app/page.tsx (rename to .tsx) or components/Landing.tsx and import it in app/page.tsx
-// 2) Ensure Tailwind is set up and globals.css includes Tailwind base/components/utilities
-// 3) Run: npm run dev
-
+// animations
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 20 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
-  },
+  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
 };
 
 const stagger: Variants = {
   hidden: {},
-  show: {
-    transition: { staggerChildren: 0.12, delayChildren: 0.1 },
-  },
+  show: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
 };
 
-
-
-
-export default function Landing() {
+// ✅ Default export must be the root page component
+export default function Page() {
   return (
     <div className="min-h-screen bg-white text-gray-900 selection:bg-black selection:text-white">
       <SiteBg />
@@ -76,15 +51,11 @@ export default function Landing() {
 function SiteBg() {
   return (
     <div aria-hidden className="pointer-events-none fixed inset-0 -z-10">
-      {/* subtle radial gradient */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(0,0,0,0.06),transparent_60%)]" />
-      
-      {/* faint overlay (noise placeholder, but safe now) */}
       <div className="absolute inset-0 opacity-[0.03]" />
     </div>
   );
 }
-
 
 function Header() {
   return (
@@ -113,7 +84,7 @@ function Hero() {
       <div className="mx-auto max-w-7xl px-6 py-24 md:py-36">
         <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true }}>
           <motion.h1 variants={fadeUp} className="text-balance text-4xl sm:text-6xl md:text-7xl font-semibold tracking-tight">
-            Done‑for‑you Reels that drive sales
+            Done-for-you Reels that drive sales
           </motion.h1>
           <motion.p variants={fadeUp} className="mt-6 max-w-2xl text-lg text-gray-600">
             Strategy, scripting, filming, editing, ads and sales systems. We make modern marketing hands off for busy owners — and focused on revenue.
@@ -134,26 +105,10 @@ function Hero() {
 
 function Features() {
   const items = [
-    {
-      icon: <Camera className="h-6 w-6" />,
-      title: "Cinematic content",
-      text: "High‑quality Reels and Stories designed to capture attention fast.",
-    },
-    {
-      icon: <Film className="h-6 w-6" />,
-      title: "End‑to‑end production",
-      text: "We handle strategy, scripting, filming and editing so you stay focused.",
-    },
-    {
-      icon: <Megaphone className="h-6 w-6" />,
-      title: "Ads that scale",
-      text: "Facebook and Google Ads to amplify reach and generate steady leads.",
-    },
-    {
-      icon: <BarChart3 className="h-6 w-6" />,
-      title: "Sales systems",
-      text: "Front desk and sales team enablement to turn attention into revenue.",
-    },
+    { icon: <Camera className="h-6 w-6" />, title: "Cinematic content", text: "High-quality Reels and Stories designed to capture attention fast." },
+    { icon: <Film className="h-6 w-6" />, title: "End-to-end production", text: "We handle strategy, scripting, filming and editing so you stay focused." },
+    { icon: <Megaphone className="h-6 w-6" />, title: "Ads that scale", text: "Facebook and Google Ads to amplify reach and generate steady leads." },
+    { icon: <BarChart3 className="h-6 w-6" />, title: "Sales systems", text: "Front desk and sales team enablement to turn attention into revenue." },
   ];
 
   return (
@@ -181,10 +136,9 @@ function Showcase() {
       <div className="mx-auto max-w-7xl px-6 py-24">
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight">Work that looks good and sells</h2>
-          <p className="mt-4 text-gray-600">Swap the image with your best case study. Keep it simple, high contrast and product‑first.</p>
+          <p className="mt-4 text-gray-600">Swap the image with your best case study. Keep it simple, high contrast and product-first.</p>
         </div>
         <div className="mt-10 overflow-hidden rounded-3xl border border-black/10 bg-gradient-to-br from-gray-50 to-white">
-          {/* Replace with <Image /> or video */}
           <div className="aspect-[16/9] w-full bg-[url('https://images.unsplash.com/photo-1518779578993-ec3579fee39f?q=80&w=1740&auto=format&fit=crop')] bg-cover bg-center" />
         </div>
       </div>
@@ -215,7 +169,7 @@ function CTA() {
         <div className="rounded-3xl bg-black text-white p-10 md:p-16 overflow-hidden">
           <div className="pointer-events-none absolute inset-0 opacity-30 bg-[radial-gradient(600px_200px_at_50%_-20%,rgba(255,255,255,0.35),transparent)]" />
           <div className="relative">
-            <h3 className="text-3xl sm:text-4xl font-semibold tracking-tight">Let’s make your marketing hands off and revenue‑focused</h3>
+            <h3 className="text-3xl sm:text-4xl font-semibold tracking-tight">Let’s make your marketing hands off and revenue-focused</h3>
             <p className="mt-4 text-white/80 max-w-2xl">Send us your goals. We’ll bring the strategy, content and systems to hit them.</p>
             <div className="mt-8 flex flex-wrap gap-3">
               <a href="mailto:hello@AEBMedia.co" className="inline-flex items-center rounded-full bg-white px-6 py-3 text-black font-medium hover:opacity-90">
