@@ -3,30 +3,29 @@
 import React from "react";
 import { motion } from "framer-motion";
 import type { Variants } from "framer-motion";
-
-
+import { motion, Variants } from "framer-motion";
 
 /**
-* Apple‑Style Homepage (fixed imports)
-*/
-
+ * Apple‑Style Homepage (fixed imports)
+ */
 
 const fadeUp: Variants = {
-hidden: { opacity: 0, y: 24 },
-show: {
-opacity: 1,
-y: 0,
-transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
-},
+  hidden: { opacity: 0, y: 24 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+  },
 };
-
 
 const stagger: Variants = {
-hidden: {},
-show: {
-transition: { staggerChildren: 0.08, delayChildren: 0.1 },
-},
+  hidden: {},
+  show: {
+    transition: { staggerChildren: 0.08, delayChildren: 0.1 },
+  },
 };
+
+
 
 export default function AppleStyleHomepage() {
   return (
