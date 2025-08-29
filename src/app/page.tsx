@@ -112,7 +112,7 @@ function ReelMedia({ media, paused }: { media: { src: string; poster?: string; t
   if (media.type === 'embed' || (!media.type && !media.src.endsWith('.mp4'))) {
     const embedSrc = media.src.includes('/embed')
       ? media.src
-      : media.src.replace(/\\/reel\\/([^/?#]+)/, '/reel/$1/embed');
+      : media.src.replace(/\/reel\/([^/?#]+)/, '/reel/$1/embed'); // ← fixed regex
     return (
       <iframe
         src={embedSrc}
