@@ -11,7 +11,7 @@ export default function Page() {
         videos={[
           { type: 'embed', src: 'https://www.instagram.com/reel/DAAJfITRWl5/' },
           { type: 'embed', src: 'https://www.instagram.com/reel/DHqyszSxJCt/' },
-          { type: 'embed', src: 'https://www.instagram.com/reel/CmP9pInAjP3/' },
+          { type: 'embed', src: 'https://www.instagram.com/reel/CmP9pInAjP3/' }, // FB-viral is fine
         ]}
         stats={[
           { label: 'Total views generated', value: 100_000_000, suffix: '+' },
@@ -108,11 +108,30 @@ function Phone({ children, tilt = 0 }: { children: React.ReactNode; tilt?: numbe
   );
 }
 
-function ReelMedia({ media, paused }: { media: { src: string; poster?: string; type?: 'mp4' | 'embed' }; paused?: boolean }) {
-  if (media.type === 'embed' || (!media.type && !media.src.endsWith('.mp4'))) {
+function ReelMedia({
+  media,
+  paused,
+}: {
+  media: { src: string; poster?: string; type?: 'mp4' | 'embed' };
+  paused?: boolean;
+}) {
+  // Decide mode up front
+  const isEmbed = media.type === 'embed' || (!media.type && !media.src.endsWith('.mp4'));
+
+  // Hooks must be unconditional
+  const videoRef = useRef<HTMLVideoElement>(null);
+  useEffect(() => {
+    if (isEmbed) return; // no video to control
+    const el = videoRef.current;
+    if (!el) return;
+    if (paused) el.pause();
+    else el.play().catch(() => {});
+  }, [paused, isEmbed]);
+
+  if (isEmbed) {
     const embedSrc = media.src.includes('/embed')
       ? media.src
-      : media.src.replace(/\/reel\/([^/?#]+)/, '/reel/$1/embed'); // ← fixed regex
+      : media.src.replace(/\/reel\/([^/?#]+)/, '/reel/$1/embed');
     return (
       <iframe
         src={embedSrc}
@@ -124,13 +143,6 @@ function ReelMedia({ media, paused }: { media: { src: string; poster?: string; t
       />
     );
   }
-
-  const videoRef = useRef<HTMLVideoElement>(null);
-  useEffect(() => {
-    const el = videoRef.current;
-    if (!el) return;
-    paused ? el.pause() : el.play().catch(() => {});
-  }, [paused]);
 
   return (
     <video
@@ -247,9 +259,8 @@ const styles: Record<string, React.CSSProperties> = {
 };
 
 /* 
-  To get the site-wide gradient background, 
-  put this in src/app/globals.css (not in TSX):
-  
+  For the site-wide gradient background, add this to src/app/globals.css:
+
   html, body { min-height: 100%; }
   body {
     background: linear-gradient(180deg, #ffffff 0%, #f1f7fd 50%, #ffffff 100%);
