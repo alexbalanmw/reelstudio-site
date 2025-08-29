@@ -33,13 +33,19 @@ function formatCompact(n: number) {
   return Intl.NumberFormat(undefined, { notation: 'compact', maximumFractionDigits: 1 }).format(n);
 }
 
-function useInViewOnce<T extends Element>(ref: React.RefObject<T>, rootMargin = '0px') {
+// ✅ Accept a ref that may be null initially
+function useInViewOnce(ref: React.RefObject<Element | null>, rootMargin = '0px') {
   const [seen, setSeen] = useState(false);
   useEffect(() => {
     if (!ref.current || seen) return;
     const obs = new IntersectionObserver(
       (entries) => {
-        for (const e of entries) if (e.isIntersecting) { setSeen(true); obs.disconnect(); }
+        for (const e of entries) {
+          if (e.isIntersecting) {
+            setSeen(true);
+            obs.disconnect();
+          }
+        }
       },
       { root: null, rootMargin, threshold: 0.2 }
     );
@@ -60,13 +66,18 @@ function HeroShowcase({
   const inView = useInViewOnce(wrapRef, '-20% 0px');
 
   const prefersReducedMotion = useMemo(
-    () => typeof window !== 'undefined'
-      && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches,
+    () =>
+      typeof window !== 'undefined' &&
+      window.matchMedia?.('(prefers-reduced-motion: reduce)').matches,
     []
   );
 
   return (
-    <section ref={wrapRef} aria-label="Reel examples and performance highlights" style={styles.section}>
+    <section
+      ref={wrapRef}
+      aria-label="Reel examples and performance highlights"
+      style={styles.section}
+    >
       {/* Phones row */}
       <div style={styles.phonesRow}>
         {videos.slice(0, 3).map((v, i) => (
@@ -121,7 +132,7 @@ function ReelMedia({
   // Hooks must be unconditional
   const videoRef = useRef<HTMLVideoElement>(null);
   useEffect(() => {
-    if (isEmbed) return; // no video to control
+    if (isEmbed) return; // nothing to control
     const el = videoRef.current;
     if (!el) return;
     if (paused) el.pause();
@@ -176,18 +187,23 @@ function AnimatedNumber({
   const rafRef = useRef<number | null>(null);
 
   useEffect(() => {
-    if (!play) { setDisplay(value); return; }
+    if (!play) {
+      setDisplay(value);
+      return;
+    }
 
     let start: number | null = null;
     function step(ts: number) {
       if (start === null) start = ts;
       const t = Math.min(1, (ts - start) / durationMs);
-      const eased = easing(t);
+      const eased = easing(t); // fast start → slow end
       setDisplay(Math.round(value * eased));
       if (t < 1) rafRef.current = requestAnimationFrame(step);
     }
     rafRef.current = requestAnimationFrame(step);
-    return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current); };
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
   }, [play, value, durationMs, easing]);
 
   return <span style={style}>{formatCompact(display)}</span>;
@@ -258,7 +274,7 @@ const styles: Record<string, React.CSSProperties> = {
   embed: { width: '100%', height: '100%', border: 0, background: '#000' },
 };
 
-/* 
+/*
   For the site-wide gradient background, add this to src/app/globals.css:
 
   html, body { min-height: 100%; }
