@@ -13,7 +13,7 @@ import React, { useEffect, useRef, useState } from 'react'
 const CLEAR_SKY = '#9BBCD8' // Pantone 14-4123 TCX approximation
 
 // Simple intersection observer hook
-function useInView(ref: React.RefObject<Element>, options?: IntersectionObserverInit) {
+function useInView(ref: React.RefObject<Element | null>, options?: IntersectionObserverInit) {
   const [inView, setInView] = useState(false)
   useEffect(() => {
     if (!ref.current || inView) return
@@ -71,24 +71,21 @@ function Counter({ to, from = 0, duration = 3600, suffix = '', className = '' }:
 export default function AppleStyleHomepage() {
   return (
     <div className="min-h-screen bg-white text-neutral-900 selection:bg-neutral-900 selection:text-white">
-     {/* Nav */}
-<header className="sticky top-0 z-40 border-b border-neutral-200/60 backdrop-blur bg-white/70">
-  <div className="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between">
-    <div className="flex items-center gap-2">
-      <div className="h-6 w-6 rounded-lg" style={{ backgroundColor: '#9BBCD8' }} aria-hidden />
-      <span className="text-sm font-semibold tracking-tight">AEB Media</span>
-    </div>
-    <nav className="hidden md:flex items-center gap-6 text-sm text-neutral-600">
-      <a className="hover:text-neutral-900" href="#features">Features</a>
-      <a className="hover:text-neutral-900" href="#stats">Results</a>
-      <a className="hover:text-neutral-900" href="#testimonials">Testimonials</a>
-    </nav>
-    <a href="#cta" className="rounded-full px-4 py-2 text-sm font-medium text-white bg-neutral-900 hover:bg-neutral-800 transition">
-      Get started
-    </a>
-  </div>
-</header>
-
+      {/* Nav */}
+      <header className="sticky top-0 z-40 border-b border-neutral-200/60 backdrop-blur bg-white/70">
+        <div className="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="h-6 w-6 rounded-lg" style={{ backgroundColor: CLEAR_SKY }} aria-hidden />
+            <span className="text-sm font-semibold tracking-tight">AEB Media</span>
+          </div>
+          <nav className="hidden md:flex items-center gap-6 text-sm text-neutral-600">
+            <a className="hover:text-neutral-900" href="#features">Features</a>
+            <a className="hover:text-neutral-900" href="#stats">Results</a>
+            <a className="hover:text-neutral-900" href="#testimonials">Testimonials</a>
+          </nav>
+          <a href="#cta" className="rounded-full px-4 py-2 text-sm font-medium text-white bg-neutral-900 hover:bg-neutral-800 transition">Get started</a>
+        </div>
+      </header>
 
       {/* Hero — Solid Clear Sky */}
       <section className="relative overflow-hidden">
